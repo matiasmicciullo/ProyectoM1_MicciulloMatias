@@ -1,0 +1,9 @@
+body {
+    background-color: aliceblue;
+}
+
+#cant_colores ul {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
