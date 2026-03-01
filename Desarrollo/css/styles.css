@@ -52,3 +52,21 @@ button {
     font-size: 16px;
     transition: 0.2s ease;
 }
+
+#cont_color {
+display: flex;
+gap: 10px;
+}
+
+
+#color {
+    color: rgb(187, 99, 27);
+}
+
+#muestra {
+    width: 20px;
+    height: 20px;
+    background-color: gray;
+    margin-top: 20px;
+    border-radius: 2px;
+}
