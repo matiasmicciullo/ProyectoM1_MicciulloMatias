@@ -23,12 +23,6 @@ header {
   border-radius: 0 0 20px 20px;
 }
 
-header .h1 {
-height: 100%;
-margin: 0;
-}
-
-
 #cant_colores {
     display: flex;
     flex-direction: column;
@@ -59,7 +53,7 @@ gap: 10px;
 }
 
 
-#color {
+#color , #color1 {
     color: rgb(187, 99, 27);
 }
 
@@ -70,3 +64,12 @@ gap: 10px;
     margin-top: 20px;
     border-radius: 2px;
 }
+
+#muestra1 {
+    width: 20px;
+    height: 20px;
+    background-color: hsl(0, 0%, 0%);
+    margin-top: 20px;
+    border-radius: 2px;
+}
+
