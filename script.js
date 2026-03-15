@@ -1,20 +1,11 @@
-function crear_num () {
-    return Math.floor(Math.random() * 256)
+function crear_num() {
+    return Math.floor(Math.random() * 256);
 }
 
 function crear_color() {
     const r = crear_num();
     const g = crear_num();
     const b = crear_num();
-    return rgb_a_hex(r, g, b);
-}
-
-function crear_hsl() {
-    const h = Math.floor(Math.random() * 361);
-    const s = Math.floor(Math.random() * 101);
-    const l = Math.floor(Math.random() * 101);
-
-    const { r, g, b } = hsl_a_rgb(h, s, l);
     return rgb_a_hex(r, g, b);
 }
 
@@ -45,6 +36,7 @@ function crear_hsl() {
 
     return rgb_a_hex(r_final, g_final, b_final);
 }
+
 function rgb_a_hex(r, g, b) {
     return "#" + [r, g, b]
         .map(n => n.toString(16).padStart(2, "0"))
@@ -52,18 +44,35 @@ function rgb_a_hex(r, g, b) {
 }
 
 const button = document.getElementById("button_generar");
-const cuadrado = document.getElementById("muestra");
-const texto = document.getElementById("color");
-const cuadrado1 = document.getElementById("muestra1");
-const texto1 = document.getElementById("color1");
+const selector = document.getElementById("selector_cantidad");
+const contenedor = document.getElementById("contenedor_paleta");
 
-button.addEventListener("click", function (){
-    const color = crear_color();
-    cuadrado.style.backgroundColor = color;
-    texto.textContent = color;
+button.addEventListener("click", function () {
+    const cantidad = parseInt(selector.value);
 
-    const color1 = crear_hsl();
-    console.log("HSL generado:", color1);
-    cuadrado1.style.backgroundColor = color1;
-    texto1.textContent = color1;
+    if (!cantidad) {
+        alert("Por favor selecciona una cantidad de colores.");
+        return;
+    }
+
+    contenedor.innerHTML = "";
+
+   for (let i = 0; i < cantidad; i++) {
+    const color = crear_hsl();
+
+    const divContenedor = document.createElement("div");
+    divContenedor.classList.add("cont_color");
+
+    const parrafo = document.createElement("p");
+    parrafo.classList.add("color");
+    parrafo.textContent = color;
+
+    const divMuestra = document.createElement("div");
+    divMuestra.classList.add("muestra");
+    divMuestra.style.backgroundColor = color;
+
+    contenedor.appendChild(divContenedor);
+    divContenedor.appendChild(divMuestra);
+     divContenedor.appendChild(parrafo);
+}
 });
