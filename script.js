@@ -43,6 +43,10 @@ function rgb_a_hex(r, g, b) {
         .join("");
 }
 
+function crear_color_aleatorio() {
+    return Math.random() < 0.5 ? crear_color() : crear_hsl();
+}
+
 const button = document.getElementById("button_generar");
 const selector = document.getElementById("selector_cantidad");
 const contenedor = document.getElementById("contenedor_paleta");
@@ -57,22 +61,22 @@ button.addEventListener("click", function () {
 
     contenedor.innerHTML = "";
 
-   for (let i = 0; i < cantidad; i++) {
-    const color = crear_hsl();
+    for (let i = 0; i < cantidad; i++) {
+        const color = crear_color_aleatorio();
 
-    const divContenedor = document.createElement("div");
-    divContenedor.classList.add("cont_color");
+        const divContenedor = document.createElement("div");
+        divContenedor.classList.add("cont_color");
 
-    const parrafo = document.createElement("p");
-    parrafo.classList.add("color");
-    parrafo.textContent = color;
+        const parrafo = document.createElement("p");
+        parrafo.classList.add("color");
+        parrafo.textContent = color;
 
-    const divMuestra = document.createElement("div");
-    divMuestra.classList.add("muestra");
-    divMuestra.style.backgroundColor = color;
+        const divMuestra = document.createElement("div");
+        divMuestra.classList.add("muestra");
+        divMuestra.style.backgroundColor = color;
 
-    contenedor.appendChild(divContenedor);
-    divContenedor.appendChild(divMuestra);
-     divContenedor.appendChild(parrafo);
-}
+        contenedor.appendChild(divContenedor);
+        divContenedor.appendChild(divMuestra);
+        divContenedor.appendChild(parrafo);
+    }
 });
