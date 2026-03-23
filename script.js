@@ -93,6 +93,16 @@ button_guardar.addEventListener("click", function () {
         return;
     }
 
+    const ya_guardada = paletas_guardadas.some(paleta => 
+        paleta.length === colores.length && 
+        paleta.every((color, i) => color === colores[i])
+    );
+
+    if (ya_guardada) {
+        alert("Esta paleta ya fue guardada.");
+        return;
+    }
+
     paletas_guardadas.push(colores);
 
     const contenedor_guardadas = document.getElementById("contenedor_guardadas");
