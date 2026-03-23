@@ -8,23 +8,35 @@
 </head>
 <body>
   <header>
-     <h1>Paleta de Colores Aleatoria</h1>
+    <h1>Paleta de Colores Aleatoria</h1>
   </header>
-<div id="cant_colores">
-  <h2> Selecciona la cantidad de Colores deseados:</h2>
-  <select id="selector_cantidad">
-    <option value=""> -- Elegir -- </option>
-    <option value="6"> 6 </option>
-    <option value="8"> 8 </option>
-    <option value="9"> 9 </option>
-  </select>
-</div>
 
- <section>
-    <button id="button_generar">Generar Paleta</button>
-    <div id="contenedor_paleta"></div>
-  </section>
+  <div id="layout">
 
- <script src="script.js"></script>
+    <aside id="paletas_guardadas">
+      <h2>Paletas Guardadas</h2>
+      <div id="contenedor_guardadas"></div>
+    </aside>
 
+    <main>
+      <div id="cant_colores">
+        <h2>Selecciona la cantidad de Colores deseados:</h2>
+        <select id="selector_cantidad">
+          <option value=""> -- Elegir -- </option>
+          <option value="6"> 6 </option>
+          <option value="8"> 8 </option>
+          <option value="9"> 9 </option>
+        </select>
+      </div>
+
+      <section>
+        <button id="button_generar">Generar Paleta</button>
+        <button id="button_guardar">Guardar Paleta</button>
+        <div id="contenedor_paleta"></div>
+      </section>
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>

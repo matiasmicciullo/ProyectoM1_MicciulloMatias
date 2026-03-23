@@ -47,7 +47,10 @@ function crear_color_aleatorio() {
     return Math.random() < 0.5 ? crear_color() : crear_hsl();
 }
 
+const paletas_guardadas = [];
+
 const button = document.getElementById("button_generar");
+const button_guardar = document.getElementById("button_guardar");
 const selector = document.getElementById("selector_cantidad");
 const contenedor = document.getElementById("contenedor_paleta");
 
@@ -79,4 +82,30 @@ button.addEventListener("click", function () {
         divContenedor.appendChild(divMuestra);
         divContenedor.appendChild(parrafo);
     }
+});
+
+button_guardar.addEventListener("click", function () {
+    const colores = Array.from(document.querySelectorAll(".color"))
+        .map(p => p.textContent);
+
+    if (colores.length === 0) {
+        alert("Primero genera una paleta.");
+        return;
+    }
+
+    paletas_guardadas.push(colores);
+
+    const contenedor_guardadas = document.getElementById("contenedor_guardadas");
+
+    const divPaleta = document.createElement("div");
+    divPaleta.classList.add("paleta_guardada");
+
+    colores.forEach(color => {
+        const cuadrado = document.createElement("div");
+        cuadrado.classList.add("muestra_guardada");
+        cuadrado.style.backgroundColor = color;
+        divPaleta.appendChild(cuadrado);
+    });
+
+    contenedor_guardadas.appendChild(divPaleta);
 });
