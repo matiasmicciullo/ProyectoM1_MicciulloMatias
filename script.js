@@ -62,25 +62,53 @@ button.addEventListener("click", function () {
         return;
     }
 
+    // Guardamos los colores bloqueados antes de limpiar
+    const bloqueados = Array.from(document.querySelectorAll(".cont_color"))
+        .map(div => ({
+            color: div.querySelector(".color").textContent,
+            bloqueado: div.classList.contains("bloqueado")
+        }));
+
     contenedor.innerHTML = "";
 
     for (let i = 0; i < cantidad; i++) {
-        const color = crear_color_aleatorio();
+        const estaba_bloqueado = bloqueados[i]?.bloqueado;
+        const color = estaba_bloqueado ? bloqueados[i].color : crear_color_aleatorio();
 
         const divContenedor = document.createElement("div");
         divContenedor.classList.add("cont_color");
-
-        const parrafo = document.createElement("p");
-        parrafo.classList.add("color");
-        parrafo.textContent = color;
+        if (estaba_bloqueado) divContenedor.classList.add("bloqueado");
 
         const divMuestra = document.createElement("div");
         divMuestra.classList.add("muestra");
         divMuestra.style.backgroundColor = color;
 
+        const parrafo = document.createElement("p");
+        parrafo.classList.add("color");
+        parrafo.textContent = color;
+
+        const btnCandado = document.createElement("button");
+        btnCandado.classList.add("btn_candado");
+        btnCandado.textContent = estaba_bloqueado ? "🔒" : "🔓";
+        btnCandado.addEventListener("click", function () {
+            divContenedor.classList.toggle("bloqueado");
+            btnCandado.textContent = divContenedor.classList.contains("bloqueado") ? "🔒" : "🔓";
+        });
+
+        const btnCopiar = document.createElement("button");
+        btnCopiar.classList.add("btn_copiar");
+        btnCopiar.textContent = "📋";
+        btnCopiar.addEventListener("click", function () {
+            navigator.clipboard.writeText(color)
+                .then(() => alert(`Copiado: ${color}`))
+                .catch(() => alert("No se pudo copiar."));
+        });
+
         contenedor.appendChild(divContenedor);
         divContenedor.appendChild(divMuestra);
         divContenedor.appendChild(parrafo);
+        divContenedor.appendChild(btnCandado);
+        divContenedor.appendChild(btnCopiar);
     }
 });
 
