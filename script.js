@@ -47,12 +47,28 @@ function crear_color_aleatorio() {
     return Math.random() < 0.5 ? crear_color() : crear_hsl();
 }
 
-const paletas_guardadas = [];
+const paletas_guardadas = JSON.parse(localStorage.getItem("paletas")) || [];
 
 const button = document.getElementById("button_generar");
 const button_guardar = document.getElementById("button_guardar");
 const selector = document.getElementById("selector_cantidad");
 const contenedor = document.getElementById("contenedor_paleta");
+const contenedor_guardadas = document.getElementById("contenedor_guardadas");
+
+// Reconstruimos el aside al cargar la página
+paletas_guardadas.forEach(colores => {
+    const divPaleta = document.createElement("div");
+    divPaleta.classList.add("paleta_guardada");
+
+    colores.forEach(color => {
+        const cuadrado = document.createElement("div");
+        cuadrado.classList.add("muestra_guardada");
+        cuadrado.style.backgroundColor = color;
+        divPaleta.appendChild(cuadrado);
+    });
+
+    contenedor_guardadas.appendChild(divPaleta);
+});
 
 button.addEventListener("click", function () {
     const cantidad = parseInt(selector.value);
@@ -62,7 +78,6 @@ button.addEventListener("click", function () {
         return;
     }
 
-    // Guardamos los colores bloqueados antes de limpiar
     const bloqueados = Array.from(document.querySelectorAll(".cont_color"))
         .map(div => ({
             color: div.querySelector(".color").textContent,
@@ -81,7 +96,12 @@ button.addEventListener("click", function () {
 
         const divMuestra = document.createElement("div");
         divMuestra.classList.add("muestra");
+        divMuestra.style.transition = "background-color 0.5s ease";
+        divMuestra.style.backgroundColor = "transparent";
+
+        setTimeout(() => {
         divMuestra.style.backgroundColor = color;
+        }, 50);
 
         const parrafo = document.createElement("p");
         parrafo.classList.add("color");
@@ -121,8 +141,8 @@ button_guardar.addEventListener("click", function () {
         return;
     }
 
-    const ya_guardada = paletas_guardadas.some(paleta => 
-        paleta.length === colores.length && 
+    const ya_guardada = paletas_guardadas.some(paleta =>
+        paleta.length === colores.length &&
         paleta.every((color, i) => color === colores[i])
     );
 
@@ -132,8 +152,7 @@ button_guardar.addEventListener("click", function () {
     }
 
     paletas_guardadas.push(colores);
-
-    const contenedor_guardadas = document.getElementById("contenedor_guardadas");
+    localStorage.setItem("paletas", JSON.stringify(paletas_guardadas));
 
     const divPaleta = document.createElement("div");
     divPaleta.classList.add("paleta_guardada");
@@ -146,4 +165,8 @@ button_guardar.addEventListener("click", function () {
     });
 
     contenedor_guardadas.appendChild(divPaleta);
+});
+
+window.addEventListener("beforeunload", function () {
+    localStorage.removeItem("paletas");
 });
